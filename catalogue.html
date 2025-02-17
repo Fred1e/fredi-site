@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogue FREDI-TECH</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-gap: 30px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        .product-card img {
+            max-width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .product-card h3 {
+            margin: 15px 0;
+            color: #2c3e50;
+            font-size: 1.4em;
+        }
+        .product-card p {
+            color: #7f8c8d;
+            font-size: 0.95em;
+            height: 80px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        .price {
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 1.3em;
+            margin: 15px 0;
+        }
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .close:hover,
+        .close:focus {
+            color: #2c3e50;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .text-center {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .cta-container {
+            display: inline-block;
+        }
+        .scrolling-cta {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .scrolling-cta:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        #modalDescription {
+            white-space: pre-line;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        .btn-payment {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-payment:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+        .btn-payment:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        .btn-payment:hover:before {
+            left: 100%;
+        }
+        .btn-payment:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Catalogue FREDI TECH</h1>
+        <div class="product-grid">
+            <!-- Nouveau produit Canal+ à vie en première position -->
+            <div class="product-card">
+                <img src="https://iili.io/dZ4NrAP.jpg" alt="Canal+ for life">
+                <h3>Canal+ for life</h3>
+                <p>Access thousands of channels and exclusive content for life with Canal+.</p>
+                <p class="price">7 USD</p>
+                <button class="btn" onclick="showDetails(0)">See details</button>
+            </div>
+            <div class="product-card">
+                <img src="https://iili.io/dPCCyoQ.jpg" alt="Comptes Netflix">
+                <h3>Netflix accounts</h3>
+                <p>Do you want Netflix accounts per month or per day? Pay here with Thomas, it's simple</p>
+                <p class="price">4 USD</p>
+                <button class="btn" onclick="showDetails(1)">See details</button>
+            </div>
+            <div class="product-card">
+                <img src="https://iili.io/dPC5Wdl.jpg" alt="Team Canvas Pro">
+                <h3>Team Canvas Pro</h3>
+                <p>Latest generation smartphone with high resolution camera</p>
+                <p class="price">2 USD</p>
+                <button class="btn" onclick="showDetails(2)">See details</button>
+            </div>
+            <div class="product-card">
+                <img src="https://iili.io/diAR06g.jpg" alt="WhatsApp Chatbot">
+                <h3>Integrate a WhatsApp Chatbot</h3>
+                <p>Integrate a WhatsApp Chatbot with automatic replies, GPT of different versions, 24/7 security</p>
+                <p class="price">10 USD</p>
+                <button class="btn" onclick="showDetails(3)">See details</button>
+            </div>
+            <div class="product-card">
+                <img src="https://iili.io/diAVpRt.jpg" alt="Unlocking Software">
+                <h3>Unlocking Software</h3>
+                <p>Several software available at Thomas. Google account deletion for any type of phone</p>
+                <p class="price">15 USD</p>
+                <button class="btn" onclick="showDetails(4)">See details</button>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <div class="cta-container">
+                <a href="#" class="scrolling-cta">
+                    Want some benefits from my free APK site? Click on the menu button then click on free apk crack!
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+            <p id="modalPrice"></p>
+            <button class="btn-payment" onclick="redirectToPaiement()">Proceed to payment</button>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            {
+                title: "Canal+ for life",
+description: "Access thousands of channels and exclusive content for life with Canal+.",
+                price: "7 USD",
+                details: "📺 Enjoy unlimited access to all your favorite content ! 🌟\n\n" +
+                         "✅ Over 200 live channels\n" +
+                         "✅ Exclusive films, series and documentaries\n" +
+                         "✅ On-demand content: watch whenever you want\n" +
+                         "✅ Lifetime Subscription: No Monthly Payments\n\n" +
+                         "🚀 With Canal+ for life, transform your evenings into unforgettable experiences. Never miss your favorite shows and enjoy the best image quality ! 🎥🍿"
+            },
+            {
+                title: "Netflix accounts",
+description: "Do you want Netflix accounts per month or per day? Pay here with Fredi, it's easy",
+                price: "4 USD",
+                details: "🔥 Discover a world of unlimited entertainment ! 🌟\n\n" +
+                         "✅ Access to thousands of films, series and documentaries\n" +
+                         "✅ Stunning HD and Ultra HD quality\n" +
+                         "✅ Flexible packages: daily or monthly\n" +
+                         "✅ Usable on all your devices\n\n" +
+                         "🚀 Never miss your favorite series again! Start your Netflix adventure today and turn every evening into a movie experience. With our accounts, it's like having Hollywood at home 🎬🍿"
+            },
+            {
+                title: "Team Canvas Pro",
+                description: "Latest generation smartphone with high resolution camera",
+                price: "2 USD",
+                details: "📱 Discover the future of mobile technology ! 🚀\n\n" +
+                         "✅ Revolutionary camera: capture life in high definition\n" +
+                         "✅ Ultra-fast processor: unmatched performance\n" +
+                         "✅ Vibrant AMOLED display: breathtaking colors\n" +
+                         "✅ Long-lasting battery: stay connected all day long\n\n" +
+                         "🌟 Turn every moment into a masterpiece! With Team Canvas Pro, you'll never need another device again. It's a phone, a professional camera and a mini computer, all in one!  📸💼"
+            },
+            {
+                title: "Integrate a WhatsApp Chatbot",
+                description: "Integrate a WhatsApp Chatbot with automatic replies, GPT of different versions, 24/7 security",
+                price: "10 USD",
+                details: "🤖 Revolutionize your customer service with AI ! 💬\n\n" +
+                         "✅ Available 24/7: never miss an opportunity\n" +
+                         "✅ Powered by GPT: Natural and intelligent conversations\n" +
+                         "✅ Customizable: adapt it to your brand\n" +
+                         "✅ Secure: protect your customers' data\n\n" +
+                         "🚀 Imagine a virtual assistant that never sleeps, never takes a break, and responds instantly to your customers. It's possible with our WhatsApp Chatbot! Boost your efficiency and impress your customers today ! 🌟💼"
+            },
+            {
+                title: "Unlocking Software",
+                description: "Several software available at Thomas. Google account deletion for any type of phone",
+                price: "15 USD",
+                details: "🔓 Unleash your phone's true potential! 📱\n\n" +
+                         "✅ Google Account Deletion: Take Back Control\n" +
+                         "✅ Bootloader Unlock: Customize Like Never Before\n" +
+                         "✅ Compatible with all models: a universal solution\n" +
+                         "✅ Expert technical support: we are here to guide you\n\n" +
+                         "🚀 Imagine being able to do ANYTHING you want with your phone. It’s possible! Our unlocking software is the key to your digital freedom. Don't let restrictions limit you anymore, become the true master of your device! 💪🔐"
+            }
+        ];
+
+        const modal = document.getElementById("detailsModal");
+        const closeBtn = document.getElementsByClassName("close")[0];
+
+        function showDetails(index) {
+            const product = products[index];
+            document.getElementById("modalTitle").textContent = product.title;
+            document.getElementById("modalDescription").textContent = product.details;
+            document.getElementById("modalPrice").textContent = "Prix : " + product.price;
+            modal.style.display = "block";
+        }
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        function redirectToPaiement() {
+            window.location.href = "paiement.html";
+        }
+    </script>
+</body>
+</html>
